@@ -1,11 +1,6 @@
-# Working with large datasets final project
-***created by Group 8***
+# Stackoverflow.com project
+***created by Yongheng Wang***
 
-## Group Members
-* Yongheng Wang
-* Linyu Wang
-* Boyu Shi
-* Peipei Gao
 
 ## Executive Summary
 #### Project objective
@@ -71,9 +66,6 @@ The plot shows the relationship of comment count and average post score. It tell
 * ***Did you just visualize the dataset, and if so, why?*** No. We not only visualize our data but also make exploration with `groupBy` function so to have a general idea of the feature relationship at an average level.
 
 ## Results/Conclusions Section:
-What did you find and learn?
-How did you validate your results?
-
 * We've learned how to utilize cloud to deal with big data: using _wget_ to download, S3 bucket to store and EMR to play with the dataset.
 * We import ****BinaryClassificationMetrics**** in model evaluation part, using ***area under ROC(AUC)*** to measure model performance. AUC of the `Tags` predictive model is 0.6264. 
 
@@ -91,40 +83,7 @@ As we can tell from the feature importance result, the `year` when the post is c
 ![question_wordcloud](https://my4dbucket.s3.amazonaws.com/math/Question.png)
 ![answer_wordcloud](https://my4dbucket.s3.amazonaws.com/math/Answer.png)
 
-## Challenges you've had (technical & non-technical) and how you overcame them
 
-* The original data is 7z format and it could not be unzipped directly using the unzip command. Based on the error information, we ought to download p7zip to unzip 7z files but we could not download it directly by 'sudo apt-get install p7zip-full' with the error 'Package 'p7zip-full' has no installation candidate'. 
-The correct way is to run 'sudo apt-get update' before 'sudo apt-get install p7zip-full' or enable all the repositories, main, universe, multiverse and restricted by sudo add-apt-repository main/universe/multiverse/restricted. However, this only works for the local ubuntu of Windows and it seemed unavailable to download p7zip in the hadoop
-instance. 
-
-* Splitting and extracting features from the xml file was a challenging work. Originally we used the regexp_extract function in spark.sql, but there was a big problem that
-there were multiple columns with the same pattern and we failed to differentiate these columns by their different locations. Finally we used find function to extract all the 
-content we needed first and then split it based on the commas outside quotes.
-
-* We have touched with the maximum affordability of some functions when making transformations of the dataset. This was annoying because we had to split the data into a group 
-of smaller datasets so that each one was within the affordability of those functions and then merged them into one.
-
-* Our binary predictive model is simple and good for studying. However, it is not perfect in practice because by splitting predictive models by separate classifiers, we are ignoring the correlations between classes (different tags). 
-
-
-## Future work: what would you do differently and what follow-up work would you do?
-* Our binary predictive model is simple and good for studying. However, it is not perfect in practice because by splitting predictive models by separate classifiers, we are ignoring the correlations between classes(different tags), in our future work, we may try to add `interaction terms` into our model to clarify the interactions among specific classifiers, which will apparently improve our model accuracy.
-
-* Moreover, we will also try to build a social network among active users with high weight in asking and answering questions in the community.
-
-## Division of labor: which team member was responsible for which part of the project
-* Yongheng Wang: Data cleaning, building `Tags` predictive model
-* Linyu Wang: Parsing XML to dataframe, performing EDA and building 3 `Score` predictive models
-* Boyu Shi: Natural language processing, building KNN model
-* Peipei Gao: Finding datasets, building `Tags` predictive model
-
-## Takeaways from the course
-- Big data is what could not be processed in local laptops because its size breaks through a certain threshold. 
-- Some functions could not afford a dataset of such a size. 
-- We should be cautious when running certain chunks because a small mistake could lead to much waste of time.
-- MapReduce doesn't care about cluster size and the MapReduce programming model is based on functional programming.
-- Hadoop, MapReduce and Spark are powerful programming paradigms.
-- We've learned how to execute a complete big data analytics process.
 
 ## Code files
 * Tags_predictive_model.ipynb
